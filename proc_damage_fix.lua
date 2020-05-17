@@ -24,3 +24,23 @@ function Duel.HalfBattleDamage(ep)
 		Duel.RegisterFlagEffect(ep,189448140,RESET_PHASE+PHASE_DAMAGE_CAL,0,0)
 	end
 end
+local EFFECT_DARK_RULER_NO_MORE=54693926
+--c: card that generates the effect, tp: player registering the effect
+--player1,player2: player to whom the effect is registered
+--reset: Reset values
+function Duel.NoBattleDamage(c,tp,player1,player2,reset)
+	if c then
+		if not reset then reset=0 end
+		local eff=Effect.CreateEffect(c)
+		eff:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+		eff:SetType(EFFECT_TYPE_FIELD)
+		eff:SetCode(EFFECT_DARK_RULER_NO_MORE)
+		eff:SetTargetRange(player1,player2)
+		eff:SetReset(reset)
+		Duel.RegisterEffect(eff,tp)
+	end
+end
+function Duel.CanPlayerTakeBattleDamage(tp)
+	return not Duel.IsPlayerAffectedByEffect(tp,EFFECT_DARK_RULER_NO_MORE)
+end
+
