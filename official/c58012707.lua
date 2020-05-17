@@ -35,7 +35,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function s.con(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetBattleDamage(tp)>0 or Duel.GetBattleDamage(1-tp)>0
+	return (Duel.GetBattleDamage(tp)>0 and Duel.CanPlayerTakeBattleDamage(tp))
+		or (Duel.GetBattleDamage(1-tp)>0 and Duel.CanPlayerTakeBattleDamage(1-tp))
 end
 function s.cfilter(c)
 	return c:IsLevelBelow(4) and c:IsRace(RACE_INSECT) and c:IsAbleToGrave()
